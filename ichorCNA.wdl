@@ -144,7 +144,7 @@ workflow ichorCNA {
     Array[File] rdata = run_ichorCNA.rdata
     Array[File] params = run_ichorCNA.params
 
-    Array[Array[File]] plots = run_ichorCNA.plots
+    Array[File] plotZip = run_ichorCNA.plotTar
   }
 }
 
@@ -255,6 +255,9 @@ task run_ichorCNA {
     EOF
 
     echo "$VAR" | Rscript -
+
+    tar -czvf ~{sampleId}.plots.tar.gz ~{sampleId}/~{sampleId}*
+    
   }
   runtime {
     memory: "10G"
@@ -269,6 +272,6 @@ task run_ichorCNA {
     File seg = "~{sampleId}.seg"
     File rdata = "~{sampleId}.RData"
 
-    Array[File] plots = glob("${sampleId}/${sampleId}*")
+    File plotTar = "~{sampleId}.plots.tar.gz"
   }
 }
