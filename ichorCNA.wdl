@@ -144,7 +144,7 @@ workflow ichorCNA {
     Array[File] rdata = run_ichorCNA.rdata
     Array[File] params = run_ichorCNA.params
 
-    Array[File] plotZip = run_ichorCNA.plotTar
+    Array[File] plotTar = run_ichorCNA.plotTar
   }
 }
 
