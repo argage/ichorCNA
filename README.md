@@ -3,7 +3,7 @@ A revised version of [this WDL](https://github.com/GavinHaLab/wdl-repo/tree/main
 
 ## Instructions
 This is just a rough explanation of what I've tested this with and how you can do it yourself, from a beginner's perspective.
-You can run this on your own if you have [cromwell installed](https://github.com/broadinstitute/cromwell/releases/tag/85) and want to use the 'run' mode. To do this, enter this into your terminal:
+You can run this on your own if you have [cromwell installed](https://github.com/broadinstitute/cromwell/releases/tag/85) and want to use the `run` mode. To do this, enter this into your terminal:
 
     java -jar cromwell-XX.jar run ichorCNA.wdl -i inputs.json -o options.json
 
