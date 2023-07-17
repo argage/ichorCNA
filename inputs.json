@@ -9,7 +9,7 @@
       "normalBai": null,
       "normalPanel": "/ichorCNA/inst/extdata/HD_ULP_PoN_hg38_1Mb_normAutosomes_median.rds",
       "genomeBuild": "hg38", 
-      "genomeStyle": "UCSC" # switch to NCBI if not hg38
+      "genomeStyle": "UCSC"
     }
   ],
   "ichorCNA.exons": null,
