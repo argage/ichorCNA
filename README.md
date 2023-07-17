@@ -1,6 +1,5 @@
 # ichorCNA-WDL
 A revised version of [this WDL](https://github.com/GavinHaLab/wdl-repo/tree/main/processes/ichorCNA) so that it outputs plots.
-Instructions on how to run a WDL on Cromwell [here](#instructions).
 
 The ichorCNA.wdl workflow has two tasks:
 - read_counter
@@ -21,8 +20,11 @@ For more info on the ichorCNA tool, visit the [Github Wiki page for ichorCNA](ht
 
 ## Configuration
 ### ichorCNA.wdl file
-Docker: By default fredhutch/ichorcna:v0.5.0 is set, and doesn't need to be changed unless you wish to.
+`taskDocker`: By default fredhutch/ichorcna:v0.5.0 is set, and doesn't need to be changed unless you wish to
+`taskCPU`: CPU variable for run_ichorCNA. May have to edit `read_counter` CPU in its runtime section.
+`memory`: Both `read_coutner` and `run_ichorCNA` may have to be edited in their runtime sections.
 
+### inputs.json file
 
 ## Outputs
 
