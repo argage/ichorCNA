@@ -1,4 +1,4 @@
-# ichorCNA-WDL
+# ichorCNA-wdl
 A revised version of [this WDL](https://github.com/GavinHaLab/wdl-repo/tree/main/processes/ichorCNA) so that it outputs plots.
 [Here is info on a snakemake version](https://github.com/broadinstitute/ichorCNA/wiki/SnakeMake-pipeline-for-ichorCNA) for comparison. 
 
