@@ -52,7 +52,7 @@ workflow getAlleleCounts {
 
             call getAlleleCountsByChr {
                 input:
-                    hetSites = GetHETsites.hetSites,
+                    hetSites = getHETsites.hetSites,
                     tumor = tumor.sampleBam,
                     tumorName = tumor.sampleName,
                     chr = chr,
@@ -66,7 +66,7 @@ workflow getAlleleCounts {
         ## Concatenate Allele Count Files
         call catAlleleCountFiles {
             input:
-                alleleCountFiles = GetAlleleCountsByChr.alleleCounts, #array here?
+                alleleCountFiles = getAlleleCountsByChr.alleleCounts, #array here?
                 tumorName = tumor.sampleName
         }
     }
