@@ -39,7 +39,7 @@ workflow getAlleleCounts {
     scatter (tumor in tumors) {
         Array[String] chrs = if tumor.genomeStyle == "NCBI" then ncbiChrs else ucscChrs
         scatter (chr in chrs) {
-            call GetHETsites {
+            call getHETsites {
                 input:
                     sample = tumor.normalBam,
                     tumorName = tumor.sampleName,
@@ -50,7 +50,7 @@ workflow getAlleleCounts {
                     bcftools = bcftools
             }
 
-            call GetAlleleCountsByChr {
+            call getAlleleCountsByChr {
                 input:
                     hetSites = GetHETsites.hetSites,
                     tumor = tumor.sampleBam,
@@ -64,7 +64,7 @@ workflow getAlleleCounts {
         }
 
         ## Concatenate Allele Count Files
-        call CatAlleleCountFiles {
+        call catAlleleCountFiles {
             input:
                 alleleCountFiles = GetAlleleCountsByChr.alleleCounts, #array here?
                 tumorName = tumor.sampleName
