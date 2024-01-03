@@ -53,7 +53,7 @@ workflow getAlleleCounts {
             call getAlleleCountsByChr {
                 input:
                     hetSites = getHETsites.hetSites,
-                    tumor = tumor.sampleBam,
+                    tumor = tumor.tumorBam,
                     tumorName = tumor.sampleName,
                     chr = chr,
                     countScript = countScript,
@@ -82,7 +82,7 @@ task getHETsites {
         #lambda wildcards: config["samples"][config["pairings"][wildcards.tumor]]
         # ^ appears to just use the normal sample paired with the tumor
         String tumorName
-        String sample #this needs to be the path to the normal bam
+        File? sample #this needs to be the path to the normal bam
         String refFasta
         String snpDB
         String samtools
@@ -104,7 +104,7 @@ task getAlleleCountsByChr {
 		#tumBam=lambda wildcards: config["samples"][wildcards.tumor]
     
         File hetSites
-        String tumor
+        File tumor
         String tumorName
         String chr
         String countScript
