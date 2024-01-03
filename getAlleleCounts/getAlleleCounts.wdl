@@ -42,7 +42,7 @@ workflow getAlleleCounts {
             call GetHETsites {
                 input:
                     sample = tumor.normalBam,
-                    tumorName = tumor.sampleName
+                    tumorName = tumor.sampleName,
                     chr = chr,
                     refFasta = refFasta,
                     snpDB = snpDB,
