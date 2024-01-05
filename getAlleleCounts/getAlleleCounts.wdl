@@ -17,7 +17,7 @@ workflow getAlleleCounts {
     input {
         Array[sampleData] tumors
         String refFasta
-        String snpDB
+        String snpVCF
         String samtools
         String bcftools
         String countScript
@@ -45,7 +45,7 @@ workflow getAlleleCounts {
                     tumorName = tumor.sampleName,
                     chr = chr,
                     refFasta = refFasta,
-                    snpDB = snpDB,
+                    snpVCF = snpVCF,
                     samtools = samtools,
                     bcftools = bcftools
             }
@@ -84,13 +84,16 @@ task getHETsites {
         String tumorName
         File? sample #this needs to be the path to the normal bam
         String refFasta
-        String snpDB
+        String snpVCF
         String samtools
         String bcftools
         String chr
     }
     command {
-        ~{samtools} mpileup -uv -I -f ~{refFasta} -r ~{chr} -l ~{snpDB} ~{sample} | ~{bcftools} call -v -c - | grep -e '0/1' -e '#' > hetSites.vcf
+        ~{samtools} mpileup -uv -I -f ~{refFasta} -r ~{chr} -l ~{snpVCF} ~{sample} | ~{bcftools} call -v -c - | grep -e '0/1' -e '#' > hetSites.vcf
+    }
+    runtime {
+        docker: "argage/titancna:v1.23.1"
     }
     output {
         #"results/titan/hetPosns/{tumor}/{tumor}.chr{chr}.vcf"
@@ -114,6 +117,9 @@ task getAlleleCountsByChr {
     }
     command {
         python ~{countScript} ~{chr} ~{hetSites} ~{tumor} ~{baseQ} ~{mapQ} ~{vcfQ} > alleleCounts.txt
+    }
+    runtime {
+        docker: "argage/titancna:v1.23.1"
     }
     output {
         #"results/titan/tumCounts/{tumor}/{tumor}.tumCounts.chr{chr}.txt"
