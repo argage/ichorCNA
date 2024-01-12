@@ -16,11 +16,11 @@ struct sampleData {
 workflow getAlleleCounts {
     input {
         Array[sampleData] tumors
-        String refFasta
-        String snpVCF
+        File refFasta
+        File snpVCF
         String samtools
         String bcftools
-        String countScript
+        File countScript
         Int baseQ
         Int mapQ
         Int vcfQ
@@ -83,8 +83,8 @@ task getHETsites {
         # ^ appears to just use the normal sample paired with the tumor
         String tumorName
         File? sample #this needs to be the path to the normal bam
-        String refFasta
-        String snpVCF
+        File refFasta
+        File snpVCF
         String samtools
         String bcftools
         String chr
@@ -93,7 +93,7 @@ task getHETsites {
         ~{samtools} mpileup -uv -I -f ~{refFasta} -r ~{chr} -l ~{snpVCF} ~{sample} | ~{bcftools} call -v -c - | grep -e '0/1' -e '#' > hetSites.vcf
     }
     runtime {
-        docker: "argage/titancna:v1.23.1"
+        docker: "argage/allelecounts"
     }
     output {
         #"results/titan/hetPosns/{tumor}/{tumor}.chr{chr}.vcf"
@@ -110,7 +110,7 @@ task getAlleleCountsByChr {
         File tumor
         String tumorName
         String chr
-        String countScript
+        File countScript
         Int baseQ
         Int mapQ
         Int vcfQ
@@ -119,11 +119,11 @@ task getAlleleCountsByChr {
         python ~{countScript} ~{chr} ~{hetSites} ~{tumor} ~{baseQ} ~{mapQ} ~{vcfQ} > alleleCounts.txt
     }
     runtime {
-        docker: "argage/titancna:v1.23.1"
+        docker: "argage/allelecounts"
     }
     output {
         #"results/titan/tumCounts/{tumor}/{tumor}.tumCounts.chr{chr}.txt"
-        File alleleCounts = "~{tumorName}.tumCounts.chr{chr}.txt"
+        File alleleCounts = "~{tumorName}.tumCounts.chr~{chr}.txt"
     }
 }
 
